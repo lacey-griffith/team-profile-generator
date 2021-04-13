@@ -9,3 +9,16 @@ test('creating employee object', () => {
     //expect(employee.email).toBeString()
     expect(employee.role).toBe('Employee')
 })
+
+test('get employee name', () => {
+    const employee = new Employee('Susan')
+
+    expect(employee.getName()).toHaveProperty('name');
+
+})
+
+test('get role', () => {
+    const employee = new Employee ('Susan')
+
+    expect(employee.getRole()).toHaveProperty('role')
+})
