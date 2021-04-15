@@ -33,3 +33,9 @@ test('get employee id', () => {
 
     expect(employee.getId()).toEqual(expect.any(Number))
 })
+
+test('get employee email', () => {
+    const employee = new Employee(testEmail)
+
+    expect(employee.getEmail()).toEqual(expect.any(String))
+})
