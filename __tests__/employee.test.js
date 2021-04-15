@@ -1,14 +1,10 @@
 const { TestScheduler } = require('@jest/core');
-// const { test, expect, jest } = require('@jest/globals');
-// const { expect } = require('@jest/globals');
 
 const Employee = require('../lib/Employee');
-
 jest.mock('../lib/Employee');
-console.log(new Employee());;
 
-test('creating employee object', () => {
-    const employee = new Employee('Lacey')
+test('create employee object', () => {
+    const employee = new Employee('Suzie')
 
     expect(employee.name).toEqual(expect.stringContaining(employee.name.toString()))
     expect(employee.role).toEqual(expect.stringContaining(employee.role.toString()))
@@ -16,19 +12,19 @@ test('creating employee object', () => {
 })
 
 test('get employee name', () => {
-    const employee = new Employee('Lacey')
+    const employee = new Employee('Suzie')
 
-    expect(employee.getName()).toBe('Lacey')
+    expect(employee.getName()).toBe('Suzie')
 })
 
 test('get employee role', () => {
-    const employee = new Employee('Lacey')
+    const employee = new Employee('Suzie')
 
     expect(employee.getRole()).toEqual(expect.stringContaining(employee.role.toString()))
 })
 
 test('get employee id', () => {
-    const employee = new Employee('Lacey')
+    const employee = new Employee('Suzie')
 
     expect(employee.getID()).toEqual(expect.any(Number))
 })
