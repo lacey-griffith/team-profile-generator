@@ -7,7 +7,7 @@ test('creating employee object', () => {
     expect(employee.name).toBe('Lacey');
     expect(employee.id).toEqual(expect.any(Number));
     //expect(employee.email).toBeString()
-    expect(employee.role).toBe('Employee')
+    expect(employee.role).toEqual(expect.stringContaining(employee.role.toString()))
 })
 
 test('get employee name', () => {
@@ -18,7 +18,7 @@ test('get employee name', () => {
 })
 
 test('get role', () => {
-    const employee = new Employee ('Susan')
+    const employee = new Employee('Susan')
 
     expect(employee.getRole()).toHaveProperty('role')
 })
