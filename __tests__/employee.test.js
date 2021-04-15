@@ -7,7 +7,6 @@ test('create employee object', () => {
     const employee = new Employee('Suzie')
 
     expect(employee.name).toEqual(expect.stringContaining(employee.name.toString()))
-    expect(employee.role).toEqual(expect.stringContaining(employee.role.toString()))
     expect(employee.id).toEqual(expect.any(Number));
 })
 
