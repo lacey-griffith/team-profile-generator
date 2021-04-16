@@ -40,8 +40,8 @@ test('get manager email', () => {
     expect(manager.getEmail()).toEqual(expect.any(String))
 })
 
-// test('get manager office number', () => {
-//     const manager = new Manager(testOfficeNumber)
+test('get manager office number', () => {
+    const manager = new Manager(testOfficeNumber)
 
-//     expect(manager.getOfficeNumber()).toEqual(expect.any(Number))
-// })
+    expect(manager.getOfficeNumber()).toEqual(expect.any(Number))
+})
