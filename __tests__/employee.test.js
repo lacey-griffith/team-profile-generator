@@ -1,7 +1,6 @@
 const { TestScheduler } = require('@jest/core');
 
 const Employee = require('../lib/Employee');
-//jest.mock('../lib/Employee');
 
 const testName = 'Suzie';
 const testRole = 'employee';
