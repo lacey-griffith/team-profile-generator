@@ -3,18 +3,10 @@ const { TestScheduler } = require('@jest/core');
 const Engineer = require('../lib/Engineer');
 
 const testName = 'Suzie';
-const testRole = 'engineer';
+const testRole = 'Engineer';
 const testId = Number(27)
 const testEmail = 'suzie@company.com';
 const testGithub = 'suzie-kaboozie'
-
-test('create engineer object', () => {
-    const engineer = new Engineer(testName, testRole, testId)
-
-    expect(engineer.name).toEqual(expect.any(String))
-    expect(engineer.role).toEqual(expect.any(String))
-    expect(engineer.id).toEqual(expect.any(Number))
-})
 
 test('get engineer name', () => {
     const engineer = new Engineer(testName)

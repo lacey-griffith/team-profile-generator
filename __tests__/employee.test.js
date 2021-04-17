@@ -7,14 +7,6 @@ const testRole = 'employee';
 const testId = Number(27)
 const testEmail = 'suzie@company.com';
 
-test('create employee object', () => {
-    const employee = new Employee(testName, testRole, testId)
-
-    expect(employee.name).toEqual(expect.any(String))
-    expect(employee.role).toEqual(expect.any(String))
-    expect(employee.id).toEqual(expect.any(Number))
-})
-
 test('get employee name', () => {
     const employee = new Employee(testName)
 
