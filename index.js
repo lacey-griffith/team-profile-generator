@@ -3,9 +3,7 @@ const Employee = require('./lib/Employee');
 const pageTemplate = require('./src/page-template.js');
 const {writeFile, copyFile} = require('./utils/generate-site.js');
 
-const internArr = [];
-const managerArr = [];
-const engineerArr = [];
+const newEmployees = [];
 
 const addEmployee = () => {
     console.log('=== === ===')
@@ -55,23 +53,23 @@ const addEmployee = () => {
             choices: ['Intern', 'Manager', 'Engineer']
         }])
         .then(employeeDataObj => {
-            console.log(employeeDataObj)
-            const {name, id, email, role} = employeeDataObj
-            
-            if(role === 'Intern') {
-                addIntern(employeeDataObj)
-            }
-            if(role === 'Manager') {
-                addManager(employeeDataObj)
-            }
-            if(role === 'Engineer') {
-                addEngineer(employeeDataObj)
-            }
+            checkRole(employeeDataObj)
         })
-        .catch(err => {
-            if(err) throw err;
-        })
-    };
+};
+
+const checkRole = employeeDataObj => {
+        const {name, id, email, role} = employeeDataObj
+        
+        if(role === 'Intern') {
+            addIntern(employeeDataObj)
+        }
+        if(role === 'Manager') {
+            addManager(employeeDataObj)
+        }
+        if(role === 'Engineer') {
+            addEngineer(employeeDataObj)
+        }
+}
 
 const addIntern = employeeDataObj => {
     inquirer.prompt({
@@ -80,7 +78,7 @@ const addIntern = employeeDataObj => {
         message: `Which school did ${employeeDataObj.name} attend?`
     }).then(school => {
         employeeDataObj.school = school
-        internArr.push(employeeDataObj)
+        newEmployees.push(employeeDataObj)
         
         inquirer.prompt({
             name: 'confirmAddEmployee',
@@ -91,6 +89,7 @@ const addIntern = employeeDataObj => {
             if(employeeDataObj.confirmAddEmployee) {
                 return addEmployee(employeeDataObj);
             } else {
+                console.log(newEmployees)
                 return employeeDataObj
             }
         })
@@ -104,7 +103,7 @@ const addManager = employeeDataObj => {
         message: `What is ${employeeDataObj.name}'s office phone number?`
     }).then(officeNumber => {
         employeeDataObj.officeNumber = officeNumber
-        managerArr.push(employeeDataObj)
+        newEmployees.push(employeeDataObj)
         
         inquirer.prompt({
             name: 'confirmAddEmployee',
@@ -115,6 +114,7 @@ const addManager = employeeDataObj => {
             if(employeeDataObj.confirmAddEmployee) {
                 return addEmployee(employeeDataObj);
             } else {
+                console.log(newEmployees)
                 return employeeDataObj
             }
         })
@@ -122,14 +122,13 @@ const addManager = employeeDataObj => {
 }
 
 const addEngineer = employeeDataObj => {
-
     inquirer.prompt({
         name: 'github',
         type: 'input',
         message: `What is ${employeeDataObj.name}'s GitHub username?`
     }).then(github => {
         employeeDataObj.github = github
-        engineerArr.push(employeeDataObj)
+        newEmployees.push(employeeDataObj)
         
         inquirer.prompt({
             name: 'confirmAddEmployee',
@@ -140,6 +139,7 @@ const addEngineer = employeeDataObj => {
             if(employeeDataObj.confirmAddEmployee) {
                 return addEmployee(employeeDataObj);
             } else {
+                console.log(newEmployees)
                 return employeeDataObj
             }
         })
