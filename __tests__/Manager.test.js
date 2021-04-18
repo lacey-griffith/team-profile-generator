@@ -8,14 +8,6 @@ const testId = Number(27)
 const testEmail = 'suzie@company.com';
 const testOfficeNumber = Number(5121234567)
 
-test('create manager object', () => {
-    const manager = new Manager(testName, testRole, testId)
-
-    expect(manager.name).toEqual(expect.any(String))
-    expect(manager.role).toEqual(expect.any(String))
-    expect(manager.id).toEqual(expect.any(Number))
-})
-
 test('get manager name', () => {
     const manager = new Manager(testName)
 
