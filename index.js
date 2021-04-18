@@ -3,13 +3,13 @@ const Employee = require('./lib/Employee');
 const pageTemplate = require('./src/page-template.js');
 const {writeFile, copyFile} = require('./utils/generate-site.js');
 
-const newEmployees = [];
+const newEmployeeArr = [];
 
 const addEmployee = () => {
     console.log('=== === ===')
     console.log('Team Profile Builder')
     console.log('=== === ===')
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             name: 'name',
             type: 'input',
@@ -52,24 +52,21 @@ const addEmployee = () => {
             message: 'Which type of employee would you like to add?',
             choices: ['Intern', 'Manager', 'Engineer']
         }])
-        .then(employeeDataObj => {
-            checkRole(employeeDataObj)
-        })
 };
 
-const checkRole = employeeDataObj => {
-        const {name, id, email, role} = employeeDataObj
+// const checkRole = employeeDataObj => {
+//         const {name, id, email, role} = employeeDataObj
         
-        if(role === 'Intern') {
-            addIntern(employeeDataObj)
-        }
-        if(role === 'Manager') {
-            addManager(employeeDataObj)
-        }
-        if(role === 'Engineer') {
-            addEngineer(employeeDataObj)
-        }
-}
+//         if(role === 'Intern') {
+//             return addIntern(employeeDataObj)
+//         }
+//         if(role === 'Manager') {
+//             return addManager(employeeDataObj)
+//         }
+//         if(role === 'Engineer') {
+//             return  addEngineer(employeeDataObj)
+//         }
+// }
 
 const addIntern = employeeDataObj => {
     inquirer.prompt({
@@ -78,7 +75,6 @@ const addIntern = employeeDataObj => {
         message: `Which school did ${employeeDataObj.name} attend?`
     }).then(school => {
         employeeDataObj.school = school
-        newEmployees.push(employeeDataObj)
         
         inquirer.prompt({
             name: 'confirmAddEmployee',
@@ -89,7 +85,8 @@ const addIntern = employeeDataObj => {
             if(employeeDataObj.confirmAddEmployee) {
                 return addEmployee(employeeDataObj);
             } else {
-                console.log(newEmployees)
+                newEmployeeArr.push(employeeDataObj)
+                //console.log(newEmployeeArr)
                 return employeeDataObj
             }
         })
@@ -103,7 +100,6 @@ const addManager = employeeDataObj => {
         message: `What is ${employeeDataObj.name}'s office phone number?`
     }).then(officeNumber => {
         employeeDataObj.officeNumber = officeNumber
-        newEmployees.push(employeeDataObj)
         
         inquirer.prompt({
             name: 'confirmAddEmployee',
@@ -114,7 +110,8 @@ const addManager = employeeDataObj => {
             if(employeeDataObj.confirmAddEmployee) {
                 return addEmployee(employeeDataObj);
             } else {
-                console.log(newEmployees)
+                newEmployeeArr.push(employeeDataObj)
+                //console.log(newEmployeeArr)
                 return employeeDataObj
             }
         })
@@ -128,7 +125,6 @@ const addEngineer = employeeDataObj => {
         message: `What is ${employeeDataObj.name}'s GitHub username?`
     }).then(github => {
         employeeDataObj.github = github
-        newEmployees.push(employeeDataObj)
         
         inquirer.prompt({
             name: 'confirmAddEmployee',
@@ -137,9 +133,10 @@ const addEngineer = employeeDataObj => {
         })
         .then(employeeDataObj => {
             if(employeeDataObj.confirmAddEmployee) {
+                console.log(employeeDataObj, 'line 136')
                 return addEmployee(employeeDataObj);
             } else {
-                console.log(newEmployees)
+                // console.log(newEmployeeArr)
                 return employeeDataObj
             }
         })
@@ -147,3 +144,37 @@ const addEngineer = employeeDataObj => {
 }
 
 addEmployee()
+.then(employeeDataObj => {
+    const {name, id, email, role} = employeeDataObj
+    if(role === 'Intern') {
+       return addIntern(employeeDataObj)
+    }
+    if(role === 'Manager') {
+        //if manager is selected, user is returned 
+       return addManager(employeeDataObj)
+    }
+    if(role === 'Engineer') {
+        //if engineer is selected, github prompts then employeedataobj is undefined before option to answer
+       return addEngineer(employeeDataObj)
+    }
+})
+.then(newEmployeeArr => {
+    //below console log gives undefined 
+    console.log(employeeDataObj,'line 160')
+    //console.log(newEmployeeArr, 'line 162 index')
+    // newEmployeeArr is undefined here
+    return pageTemplate(newEmployeeArr)
+})
+// .then(profileHTML => {
+//     return writeFile(profileHTML)
+// })
+// .then(writeFileResponse => {
+//     console.log(writeFileResponse)
+//     return copyFile();
+// })
+.then(copyFileResponse => {
+    console.log(copyFileResponse)
+})
+.catch(err => {
+    console.log(err)
+})
