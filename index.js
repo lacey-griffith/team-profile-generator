@@ -65,21 +65,23 @@ const addEmployee = () => {
             choices: ['Intern', 'Manager', 'Engineer']
         }])
         .then(employeeDataObj => {
+            console.log(employeeDataObj)
             const {
                 name,
                 id,
                 email,
                 role
             } = employeeDataObj
-
+            console.log(email)
+            //email is defined appropriately here
             if (role === 'Intern') {
-                addIntern(name, id, email, role);
+                addIntern(name,id, email, role);
             }
             else if (role === 'Manager') {
-                addManager(name, id, email, role);
+                addManager(name,id, email, role);
             }
             else if (role === 'Engineer') {
-                addEngineer(name, id, email, role);
+                addEngineer(name,id, email, role);
             }
             else {
                 return console.error(err);
@@ -87,78 +89,84 @@ const addEmployee = () => {
         })
 }
 
-const addIntern = (name, id, email, role) => {
+const addIntern = (name,id, email, role) => {
     return inquirer.prompt({
         name: 'school',
         type: 'input',
         message: `Which school did ${name} attend?`
     }).then(school => {
-        const employee = new Intern(name, id, email, role, school)
-        newEmployeeArr.push(employee)
+        //define school better
+        const intern = new Intern(name,id, email, role, school)
+        newEmployeeArr.push(intern)
 
             inquirer.prompt({
             name: 'confirmAddEmployee',
             type: 'confirm',
-            message: 'Would you like to add another employee?'
+            message: 'Would you like to add another employee?',
+            default: false
         }).then(confirmAdd => {
-            if (confirmAdd) {
+            confirmAdd.value = Object.values(confirmAdd)
+            if (confirmAdd.value[0] === true) {
                 return addEmployee();
             } else {
-                generateHTML(newEmployeeArr)
+                return generateHTML(newEmployeeArr)
             }
 
         })
     })
 }
 
-const addManager = (name, id, email, role) => {
+const addManager = (name, role, id, email, officeNumber) => {
     return inquirer.prompt({
         name: 'officeNumber',
         type: 'input',
         message: `What is ${name}'s office phone number?`
     }).then(officeNumber => {
-        const employee = new Manager(name, id, email, role, officeNumber)
-        newEmployeeArr.push(employee)
+        const manager = new Manager(name, role, id, email, officeNumber)
+        newEmployeeArr.push(manager)
 
             inquirer.prompt({
             name: 'confirmAddEmployee',
             type: 'confirm',
             message: 'Would you like to add another employee?'
         }).then(confirmAdd => {
-            if (confirmAdd) {
+            confirmAdd.value = Object.values(confirmAdd)
+            if (confirmAdd.value[0] === true) {
                 return addEmployee();
             } else {
-                generateHTML(newEmployeeArr)
+                return generateHTML(newEmployeeArr)
             }
 
         })
     })
 }
 
-const addEngineer = (name, id, email, role) => {
+const addEngineer = (name, role, id, email, github) => {
     return inquirer.prompt({
         name: 'github',
         type: 'input',
         message: `What is ${name}'s GitHub username?`
     }).then(github => {
-        const employee = new Engineer(name, id, email, role, github)
-        newEmployeeArr.push(employee)
+        const engineer = new Engineer(name, role, id, email, github)
+        newEmployeeArr.push(engineer)
 
             inquirer.prompt({
             name: 'confirmAddEmployee',
             type: 'confirm',
             message: 'Would you like to add another employee?'
         }).then(confirmAdd => {
-            if (confirmAdd) {
+            confirmAdd.value = Object.values(confirmAdd)
+            if (confirmAdd.value[0] === true) {
                 return addEmployee();
             } else {
-                generateHTML(newEmployeeArr)
+                return generateHTML(newEmployeeArr)
             }
         })
     })
 }
 
 const generateHTML = () => {
+    //email is not defined appropriately here
     console.log(newEmployeeArr, 'line 140')
     return `
     <!DOCTYPE html>
@@ -175,6 +183,12 @@ const generateHTML = () => {
     </html>
         `;
     }
+// get newEmployeeArr
+// loop through to display each employee on the HTML page
+// use .map and .filter to put interns, managers and engineers together
+// write to an index.html file in the dist folder
+// add to the css style sheet (template from previous lesson?, bootstrap?)
+// copy the css stylesheet to the dist folder (link within html!)
 
 
 
