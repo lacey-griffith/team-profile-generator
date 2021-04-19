@@ -74,15 +74,15 @@ const addEmployee = () => {
                     message: `Which school did ${employeeDataObj.name} attend?`
                 }).then(school => {
                     const employee = new Intern(name, role, id, email, school)
+                    newEmployeeArr.push(employee)
                     inquirer.prompt({
                         name: 'confirmAddEmployee',
                         type: 'confirm',
                         message: 'Would you like to add another employee?'
-                    }).then(employeeDataObj => {
-                        if (employeeDataObj.confirmAddEmployee) {
+                    }).then(confirmAdd => {
+                        if (confirmAdd) {
                             return addEmployee();
                         } else {
-                            newEmployeeArr.push(employeeDataObj)
                             return employeeDataObj
                         }
 
@@ -96,15 +96,15 @@ const addEmployee = () => {
                     message: `What is ${employeeDataObj.name}'s office phone number?`
                 }).then(officeNumber => {
                     const employee = new Manager(name, role, id, email, officeNumber)
+                    newEmployeeArr.push(employee)
                     inquirer.prompt({
                         name: 'confirmAddEmployee',
                         type: 'confirm',
                         message: 'Would you like to add another employee?'
-                    }).then(employeeDataObj => {
-                        if (employeeDataObj.confirmAddEmployee) {
+                    }).then(confirmAdd => {
+                        if (confirmAdd) {
                             return addEmployee();
                         } else {
-                            newEmployeeArr.push(employeeDataObj)
                             return employeeDataObj
                         }
 
@@ -118,16 +118,16 @@ const addEmployee = () => {
                     message: `What is ${employeeDataObj.name}'s GitHub username?`
                 }).then(github => {
                     const employee = new Engineer(name, role, id, email, github)
+                    newEmployeeArr.push(employee)
                     inquirer.prompt({
                         name: 'confirmAddEmployee',
                         type: 'confirm',
                         message: 'Would you like to add another employee?'
-                    }).then(employeeDataObj => {
-                        if (employeeDataObj.confirmAddEmployee) {
+                    }).then(confirmAdd => {
+                        if (confirmAdd) {
                             return addEmployee();
                         } else {
-                            newEmployeeArr.push(employeeDataObj)
-                            return employeeDataObj
+                            return newEmployeeArr
                         }
                     })
                 })
@@ -135,7 +135,7 @@ const addEmployee = () => {
         })
 }
 
-const generateHTML = function(){
+const generateHTML = function(newEmployeeArr){
     console.log(newEmployeeArr)
     return `
     <!DOCTYPE html>
