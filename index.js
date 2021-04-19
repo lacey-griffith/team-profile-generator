@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const Employee = require('./lib/Employee')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
@@ -34,10 +33,13 @@ const addEmployee = () => {
             type: 'input',
             message: 'ID: ',
             validate: idInput => {
-                if (idInput) {
+                const verify = idInput.match (
+                    /^[0-9]\d*$/
+                )
+                if (verify) {
                     return true
                 } else {
-                    console.log('ID is required.')
+                    console.log(`\nEnter a valid ID.`)
                     return false
                 }
             }
@@ -46,10 +48,13 @@ const addEmployee = () => {
             type: 'input',
             message: 'Email address: ',
             validate: emailInput => {
-                if (emailInput) {
+                const verify = emailInput.match(
+                /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+                );
+                if (verify) {
                     return true
                 } else {
-                    console.log('Email is required.')
+                    console.log(`\nEnter a valid email address.`)
                     return false
                 }
             }
@@ -68,75 +73,93 @@ const addEmployee = () => {
             } = employeeDataObj
 
             if (role === 'Intern') {
-            return inquirer.prompt({
-                    name: 'school',
-                    type: 'input',
-                    message: `Which school did ${employeeDataObj.name} attend?`
-                }).then(school => {
-                    const employee = new Intern(name, role, id, email, school)
-                    newEmployeeArr.push(employee)
-                    inquirer.prompt({
-                        name: 'confirmAddEmployee',
-                        type: 'confirm',
-                        message: 'Would you like to add another employee?'
-                    }).then(confirmAdd => {
-                        if (confirmAdd) {
-                            return addEmployee();
-                        } else {
-                            return employeeDataObj
-                        }
-
-                    })
-                })
+                addIntern(name, id, email, role);
             }
-            if (role === 'Manager') {
-            return inquirer.prompt({
-                    name: 'officeNumber',
-                    type: 'input',
-                    message: `What is ${employeeDataObj.name}'s office phone number?`
-                }).then(officeNumber => {
-                    const employee = new Manager(name, role, id, email, officeNumber)
-                    newEmployeeArr.push(employee)
-                    inquirer.prompt({
-                        name: 'confirmAddEmployee',
-                        type: 'confirm',
-                        message: 'Would you like to add another employee?'
-                    }).then(confirmAdd => {
-                        if (confirmAdd) {
-                            return addEmployee();
-                        } else {
-                            return employeeDataObj
-                        }
-
-                    })
-                })
+            else if (role === 'Manager') {
+                addManager(name, id, email, role);
             }
-            if (role === 'Engineer') {
-            return inquirer.prompt({
-                    name: 'github',
-                    type: 'input',
-                    message: `What is ${employeeDataObj.name}'s GitHub username?`
-                }).then(github => {
-                    const employee = new Engineer(name, role, id, email, github)
-                    newEmployeeArr.push(employee)
-                    inquirer.prompt({
-                        name: 'confirmAddEmployee',
-                        type: 'confirm',
-                        message: 'Would you like to add another employee?'
-                    }).then(confirmAdd => {
-                        if (confirmAdd) {
-                            return addEmployee();
-                        } else {
-                            return newEmployeeArr
-                        }
-                    })
-                })
+            else if (role === 'Engineer') {
+                addEngineer(name, id, email, role);
+            }
+            else {
+                return console.error(err);
             }
         })
 }
 
-const generateHTML = function(newEmployeeArr){
-    console.log(newEmployeeArr)
+const addIntern = (name, id, email, role) => {
+    return inquirer.prompt({
+        name: 'school',
+        type: 'input',
+        message: `Which school did ${name} attend?`
+    }).then(school => {
+        const employee = new Intern(name, id, email, role, school)
+        newEmployeeArr.push(employee)
+
+            inquirer.prompt({
+            name: 'confirmAddEmployee',
+            type: 'confirm',
+            message: 'Would you like to add another employee?'
+        }).then(confirmAdd => {
+            if (confirmAdd) {
+                return addEmployee();
+            } else {
+                generateHTML(newEmployeeArr)
+            }
+
+        })
+    })
+}
+
+const addManager = (name, id, email, role) => {
+    return inquirer.prompt({
+        name: 'officeNumber',
+        type: 'input',
+        message: `What is ${name}'s office phone number?`
+    }).then(officeNumber => {
+        const employee = new Manager(name, id, email, role, officeNumber)
+        newEmployeeArr.push(employee)
+
+            inquirer.prompt({
+            name: 'confirmAddEmployee',
+            type: 'confirm',
+            message: 'Would you like to add another employee?'
+        }).then(confirmAdd => {
+            if (confirmAdd) {
+                return addEmployee();
+            } else {
+                generateHTML(newEmployeeArr)
+            }
+
+        })
+    })
+}
+
+const addEngineer = (name, id, email, role) => {
+    return inquirer.prompt({
+        name: 'github',
+        type: 'input',
+        message: `What is ${name}'s GitHub username?`
+    }).then(github => {
+        const employee = new Engineer(name, id, email, role, github)
+        newEmployeeArr.push(employee)
+
+            inquirer.prompt({
+            name: 'confirmAddEmployee',
+            type: 'confirm',
+            message: 'Would you like to add another employee?'
+        }).then(confirmAdd => {
+            if (confirmAdd) {
+                return addEmployee();
+            } else {
+                generateHTML(newEmployeeArr)
+            }
+        })
+    })
+}
+
+const generateHTML = () => {
+    console.log(newEmployeeArr, 'line 140')
     return `
     <!DOCTYPE html>
         <html lang="en">
