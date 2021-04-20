@@ -61,27 +61,24 @@ const addEmployee = () => {
         }, {
             name: 'role',
             type: 'list',
-            message: 'Which type of employee would you like to add?',
+            message: 'Which role is this employee?',
             choices: ['Intern', 'Manager', 'Engineer']
         }])
         .then(employeeDataObj => {
-            console.log(employeeDataObj)
             const {
                 name,
                 id,
                 email,
                 role
             } = employeeDataObj
-            console.log(email)
-            //email is defined appropriately here
             if (role === 'Intern') {
-                addIntern(name,id, email, role);
+                addIntern(name,id, email);
             }
             else if (role === 'Manager') {
-                addManager(name,id, email, role);
+                addManager(name,id, email);
             }
             else if (role === 'Engineer') {
-                addEngineer(name,id, email, role);
+                addEngineer(name,id, email);
             }
             else {
                 return console.error(err);
@@ -89,15 +86,16 @@ const addEmployee = () => {
         })
 }
 
-const addIntern = (name,id, email, role) => {
+const addIntern = (name,id, email) => {
     return inquirer.prompt({
         name: 'school',
         type: 'input',
         message: `Which school did ${name} attend?`
     }).then(school => {
-        //define school better
-        console.log(name, id, email, role, school)
-        const intern = new Intern(name,id, email, role, school)
+        school = Object.values(school)
+        this.school = school[0]
+
+        const intern = new Intern(name, id, email, school[0])
         newEmployeeArr.push(intern)
 
             inquirer.prompt({
@@ -117,19 +115,23 @@ const addIntern = (name,id, email, role) => {
     })
 }
 
-const addManager = (name, role, id, email, officeNumber) => {
+const addManager = (name, id, email) => {
     return inquirer.prompt({
         name: 'officeNumber',
         type: 'input',
         message: `What is ${name}'s office phone number?`
     }).then(officeNumber => {
-        const manager = new Manager(name, role, id, email, officeNumber)
+        officeNumber = Object.values(officeNumber)
+        this.officeNumber = officeNumber[0]
+
+        const manager = new Manager(name, id, email, officeNumber[0])
         newEmployeeArr.push(manager)
 
             inquirer.prompt({
             name: 'confirmAddEmployee',
             type: 'confirm',
-            message: 'Would you like to add another employee?'
+            message: 'Would you like to add another employee?',
+            default: false
         }).then(confirmAdd => {
             confirmAdd.value = Object.values(confirmAdd)
             if (confirmAdd.value[0] === true) {
@@ -142,19 +144,23 @@ const addManager = (name, role, id, email, officeNumber) => {
     })
 }
 
-const addEngineer = (name, role, id, email, github) => {
+const addEngineer = (name, id, email) => {
     return inquirer.prompt({
         name: 'github',
         type: 'input',
         message: `What is ${name}'s GitHub username?`
     }).then(github => {
-        const engineer = new Engineer(name, role, id, email, github)
+        github = Object.values(github)
+        this.github = github[0]
+
+        const engineer = new Engineer(name, id, email, github[0])
         newEmployeeArr.push(engineer)
 
             inquirer.prompt({
             name: 'confirmAddEmployee',
             type: 'confirm',
-            message: 'Would you like to add another employee?'
+            message: 'Would you like to add another employee?',
+            default: false
         }).then(confirmAdd => {
             confirmAdd.value = Object.values(confirmAdd)
             if (confirmAdd.value[0] === true) {
@@ -166,8 +172,7 @@ const addEngineer = (name, role, id, email, github) => {
     })
 }
 
-const generateHTML = () => {
-    //email is not defined appropriately here
+const generateHTML = (newEmployeeArr) => {
     console.log(newEmployeeArr, 'line 140')
     return `
     <!DOCTYPE html>
