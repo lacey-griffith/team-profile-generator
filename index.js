@@ -96,6 +96,7 @@ const addIntern = (name,id, email, role) => {
         message: `Which school did ${name} attend?`
     }).then(school => {
         //define school better
+        console.log(name, id, email, role, school)
         const intern = new Intern(name,id, email, role, school)
         newEmployeeArr.push(intern)
 
