@@ -5,6 +5,8 @@ const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 
+const generateHTML = require('./src/page-template')
+//const generateProfile = require('/utils/generate-site')
 
 const newEmployeeArr = [];
 
@@ -171,30 +173,6 @@ const addEngineer = (name, id, email) => {
         })
     })
 }
-
-const generateHTML = (newEmployeeArr) => {
-    console.log(newEmployeeArr, 'line 140')
-    return `
-    <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Our Team Profile</title>
-        </head>
-        <body>
-            TESTING THIS RIGHT NOW
-        </body>
-    </html>
-        `;
-    }
-// get newEmployeeArr
-// loop through to display each employee on the HTML page
-// use .map and .filter to put interns, managers and engineers together
-// write to an index.html file in the dist folder
-// add to the css style sheet (template from previous lesson?, bootstrap?)
-// copy the css stylesheet to the dist folder (link within html!)
 
 
 
