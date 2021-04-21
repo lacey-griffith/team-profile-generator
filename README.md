@@ -30,3 +30,7 @@ This project was created by lacey-griffith.
 # Questions
 If you have any questions please contact me at lacey.griffith04@gmail.com.
 You can also visit my GitHub profile by clicking [here](https://github.com/lacey-griffith) and the repository for this project can be found [here](https://github.com/lacey-griffith/team-profile-generator).
+
+# Site Image
+Here is a screen shot of an example team profile.
+![Site Image](./images/team_profile_generatore.png)
