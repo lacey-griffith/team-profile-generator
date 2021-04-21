@@ -60,13 +60,14 @@ module.exports = newEmployeeArr => {
         if (newEmployeeArr[i].role === "Manager") {
             managerArr.push(newEmployeeArr[i])
             }
-        if (newEmployeeArr[i].role === "Engineer")
+        if (newEmployeeArr[i].role === "Engineer") {
             engineerArr.push(newEmployeeArr[i])
         }
+        writeFile(pageHTML);
+      }
     console.log(internArr)
     console.log(managerArr)
     console.log(engineerArr)
-        
         return `
         <!DOCTYPE html>
         <html lang="en">
@@ -94,7 +95,7 @@ module.exports = newEmployeeArr => {
     }
     // get newEmployeeArr
     // loop through to display each employee on the HTML page
-    // use .map and .filter to put interns, managers and engineers together
+    // use .map and to put interns, managers and engineers where they need to go
     // write to an index.html file in the dist folder
     // add to the css style sheet (template from previous lesson?, bootstrap?)
     // copy the css stylesheet to the dist folder (link within html!)
