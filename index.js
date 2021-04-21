@@ -106,7 +106,18 @@ const addEmployee = () => {
                 return inquirer.prompt({
                     name: 'officeNumber',
                     type: 'input',
-                    message: `What is ${name}'s office phone number?`
+                    message: `What is ${name}'s office phone number?`,
+                    validate: phoneInput => {
+                        const verify = phoneInput.match(
+                            /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+                        );
+                        if (verify) {
+                            return true
+                        } else {
+                            console.log(`\nEnter a valid phone number.`)
+                            return false
+                        }
+                    }
                 }).then(officeNumber => {
                     officeNumber = officeNumber.officeNumber
                     this.officeNumber = officeNumber
