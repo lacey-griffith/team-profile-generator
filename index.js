@@ -94,10 +94,10 @@ const addIntern = (name,id, email) => {
         type: 'input',
         message: `Which school did ${name} attend?`
     }).then(school => {
-        school = Object.values(school)
-        this.school = school[0]
+        school = school.school
+        this.school = school
 
-        const intern = new Intern(name, id, email, school[0])
+        const intern = new Intern(name, id, email, school)
         newEmployeeArr.push(intern)
 
             inquirer.prompt({
@@ -123,10 +123,10 @@ const addManager = (name, id, email) => {
         type: 'input',
         message: `What is ${name}'s office phone number?`
     }).then(officeNumber => {
-        officeNumber = Object.values(officeNumber)
-        this.officeNumber = officeNumber[0]
+        officeNumber = officeNumber.officeNumber
+        this.officeNumber = officeNumber
 
-        const manager = new Manager(name, id, email, officeNumber[0])
+        const manager = new Manager(name, id, email, officeNumber)
         newEmployeeArr.push(manager)
 
             inquirer.prompt({
@@ -152,10 +152,10 @@ const addEngineer = (name, id, email) => {
         type: 'input',
         message: `What is ${name}'s GitHub username?`
     }).then(github => {
-        github = Object.values(github)
-        this.github = github[0]
+        github = github.github
+        this.github = github
 
-        const engineer = new Engineer(name, id, email, github[0])
+        const engineer = new Engineer(name, id, email, github)
         newEmployeeArr.push(engineer)
 
             inquirer.prompt({
