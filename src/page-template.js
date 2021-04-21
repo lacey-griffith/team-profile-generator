@@ -63,7 +63,6 @@ module.exports = newEmployeeArr => {
         if (newEmployeeArr[i].role === "Engineer") {
             engineerArr.push(newEmployeeArr[i])
         }
-        writeFile(pageHTML);
       }
     console.log(internArr)
     console.log(managerArr)
