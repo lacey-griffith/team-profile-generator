@@ -5,9 +5,9 @@ const generateInterns = interns => {
           return `
           <div class= "col-2 col-md-3 m-2 bg-dark text-light p-3 flex-column">
             <h2 class= "name text-light">${name}</h3>
+            <h6 class= "text-light">${role}</h4>
             <h6 class= "text-light">ID: ${id}</h5>
-            <h6 class= "text-light">Role: ${role}</h4>
-            <h6 class= "text-light">Email: ${email}</h5>
+            <h6 class= "links text-light"><a href="mailto:${email}" target="_blank">Send email</a></h5>
             <h6 class= "text-light">School: ${school}</h5>
           </div>
           `;
@@ -19,9 +19,9 @@ const generateManagers = managers => {
           return `
           <div class= "col-2 col-md-3 m-2 bg-dark text-light p-3 flex-column">
             <h2 class= "text-light">${name}</h3>
+            <h6 class= "text-light">${role}</h4>
             <h6 class= "text-light">ID: ${id}</h5>
-            <h6 class= "text-light">Role: ${role}</h4>
-            <h6 class= "text-light">Email: ${email}</h5>
+            <h6 class= "links text-light"><a href="mailto:${email}" target="_blank">Send email</a></h5>
             <h6 class= "text-light">Office Number: ${officeNumber}</h5>
           </div>
           `;
@@ -33,10 +33,10 @@ const generateEngineers = engineers => {
           return `
           <div class= "col-2 col-md-3 m-2 bg-dark text-light p-3 flex-column">
             <h2 class= "text-light">${name}</h3>
+            <h6 class= "text-light">${role}</h4>
             <h6 class= "text-light">ID: ${id}</h5>
-            <h6 class= "text-light">Role: ${role}</h4>
-            <h6 class= "text-light">Email: ${email}</h5>
-            <h6 class= "text-light">GitHub username: ${github}</h5>
+            <h6 class= "text-light"><a class = "links" href="mailto:${email}" target="_blank">Send email</a></h5>
+            <h6 class= "links text-light">GitHub:<a href="https://github.com/${github}" target="_blank">Visit GitHub</a></h5>
           </div>
           `;
         })
